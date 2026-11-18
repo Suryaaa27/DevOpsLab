@@ -15,7 +15,9 @@ message and does not include other functionality.
 ## Jenkins: build on GitHub pushes
 
 The `Jenkinsfile` checks out the source, verifies that the home page contains
-the welcome message, and archives `index.html` as the build artifact.
+the welcome message, and archives `index.html` as the build artifact. Its
+validation uses Jenkins pipeline steps, so it works on Windows and Unix agents
+without requiring a shell.
 
 1. Install Jenkins and the **GitHub** plugin. Ensure the Jenkins controller can
    reach GitHub and that Git is installed on the agent.
