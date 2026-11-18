@@ -6,16 +6,17 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
         stage('Build') {
             steps {
-                sh 'test -s index.html'
-                sh 'grep -q "Welcome to Student Management" index.html'
+                script {
+                    if (!fileExists('index.html')) {
+                        error 'index.html is missing'
+                    }
+
+                    if (!readFile('index.html').contains('Welcome to Student Management')) {
+                        error 'The student management welcome message is missing'
+                    }
+                }
             }
         }
     }
